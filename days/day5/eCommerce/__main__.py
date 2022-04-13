@@ -28,7 +28,7 @@ while user is None:
         What do want?
         [1] Login
         [2] Register
-        [2] Info
+        [3] Info
         :''')
     if option is '1':
         username = input('Enter username: ')
@@ -39,8 +39,14 @@ while user is None:
             print(p('There is no such user :( Try again'))
     if option is '2':
         #Register user by saving info to data.json
-        username = input(p('Enter username: '))
-        newUser = User()
+        username = input('Enter username: ')
+        newUser = User(username)
+        
+        jsonString = json.dumps(newUser.serializeJSON())
+        jsonFile = open('data.json', 'w')
+        jsonFile.write(jsonString)
+        jsonFile.close()
+    
             
 print(p(f'Welcome {user.username}!'))
 

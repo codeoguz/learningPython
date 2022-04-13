@@ -29,5 +29,5 @@ if not os.path.exists(path):
 
 jsonString = json.dumps(users)
 jsonFile = open('data.json', 'w')
-jsonFile.write(jsonString)
+jsonFile.write(jsonString)  
 jsonFile.close()
