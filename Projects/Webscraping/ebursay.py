@@ -1,11 +1,11 @@
-from ast import Try
-from warnings import catch_warnings
+from xmlrpc.client import ResponseError
 from bs4 import BeautifulSoup
 import requests
 import sqlite3
-dbname = 'ebursay.db'
 
-con = sqlite3.connect(f'{dbname}.db')
+dbname = 'ebursay'
+
+con = sqlite3.connect(f'././{dbname}.db')
 
 cur = con.cursor()
 
@@ -33,17 +33,39 @@ def parse_soup(sp):
         
     return recipe_list
 
-for i in range(3):
-    i = i + 1
-    starturl = f'https://e.bursay.com.tr/fan/page/{i}'
-    
-    sp = getPage(starturl)
-    recipe_list = parse_soup(sp)
+pages = [
+    'https://e.bursay.com.tr/isitma',
+    'https://e.bursay.com.tr/kazan',
+    'https://e.bursay.com.tr/sogutma',
+    'https://e.bursay.com.tr/fan',
+    'https://e.bursay.com.tr/dogalgaz-tesisat-malzemesi',
+    'https://e.bursay.com.tr/pompa',
+    'https://e.bursay.com.tr/sihhi-tesisat-malzemesi',
+    'https://e.bursay.com.tr/tesisat-malzemesi',
+    'https://e.bursay.com.tr/Vana',
+    'https://e.bursay.com.tr/hirdavat'
+]
 
-    print(i, len(recipe_list))
-    print(recipe_list)
-    
-    cur.executemany("INSERT OR IGNORE INTO products VALUES (?,?,?)", recipe_list)
-    con.commit()
-    
-    
+for page in pages:
+    i = 0
+    while True:    
+        i += 1
+        starturl = f'{page}/page/{i}'  
+        
+        r = requests.get(starturl)
+        sp =  BeautifulSoup(r.text, 'html.parser')
+        
+        if not r.ok:
+            break   
+        
+        recipe_list = parse_soup(sp)
+
+        print(f'''
+              Link: {page}
+              Index: {i}
+              Length: {len(recipe_list)}
+              ''')
+        
+        cur.executemany("INSERT OR IGNORE INTO products VALUES (?,?,?)", recipe_list)
+        con.commit()
+        
