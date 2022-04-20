@@ -14,4 +14,3 @@ class Ranger(Car):
 myCar = Ranger(500, 6, 8, 'Levent Warranty Service')
 
 print(myCar.passengers, myCar.price, myCar.tires, myCar.warranty)
-

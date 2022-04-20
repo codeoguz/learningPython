@@ -25,7 +25,7 @@ user = None
 while user is None:
     option = input(
         '''
-        What do want?
+        What do you want?
         [1] Login
         [2] Register
         [3] Info
@@ -37,7 +37,7 @@ while user is None:
                 user = loopUser
         if user is None:
             print(p('There is no such user :( Try again'))
-    if option is '2':
+    elif option is '2':
         #Register user by saving info to data.json
         username = input('Enter username: ')
         newUser = User(username)
