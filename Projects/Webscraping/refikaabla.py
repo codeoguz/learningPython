@@ -46,6 +46,3 @@ for i in range(35):
         con.commit()
     except: 
         pass
-    
-    
-
