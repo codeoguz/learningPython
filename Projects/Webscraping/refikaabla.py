@@ -8,8 +8,6 @@ dbname = 'refikabla'
 con = sqlite3.connect(f'{dbname}.db')
 cur = con.cursor()
 
-
-
 cur.execute('''CREATE TABLE IF NOT EXISTS recipes 
             (photo text PRIMARY KEY, category text, name text)''')
 
@@ -46,6 +44,3 @@ for i in range(35):
         con.commit()
     except: 
         pass
-    
-    
-
