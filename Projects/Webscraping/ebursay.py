@@ -10,7 +10,7 @@ con = sqlite3.connect(f'././{dbname}.db')
 cur = con.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS products 
-            (name text PRIMARY KEY, photo text, price real)''')
+            (name text PRIMARY KEY, photo text, price real)''') 
 
 def clean(item):
     return item.strip().replace('Â', '').replace('£', '')
@@ -48,7 +48,7 @@ pages = [
 
 for page in pages:
     i = 0
-    while True:    
+    while True:             
         i += 1
         starturl = f'{page}/page/{i}'  
         
