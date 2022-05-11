@@ -36,11 +36,7 @@ def parse_soup(sp):
         
     return recipe_list
 
-
-
-
 recipe_list = []
-
 
 with open("linkedin.mhtml") as fp:
     message = email.message_from_file(fp)
